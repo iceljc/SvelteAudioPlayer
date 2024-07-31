@@ -277,15 +277,15 @@
       <div class="aplayer-controller">
         <!-- svelte-ignore a11y-no-static-element-interactions -->
         <div
-          class="aplayer-bar-wrap"
-          bind:this={playedBar}
-          on:mousedown={progressDragStart}
-          on:mousemove={progressDragMove}
-          on:mouseup={progressDragEnd}
-          on:mouseleave={progressDragEnd}
-          on:touchstart={progressDragStart}
-          on:touchmove={progressDragMove}
-          on:touchend={progressDragEnd}
+            class="aplayer-bar-wrap"
+            bind:this={playedBar}
+            on:mousedown={progressDragStart}
+            on:mousemove={progressDragMove}
+            on:mouseup={progressDragEnd}
+            on:mouseleave={progressDragEnd}
+            on:touchstart={progressDragStart}
+            on:touchmove={progressDragMove}
+            on:touchend={progressDragEnd}
         >
           <div class="aplayer-bar">
             <div
@@ -293,100 +293,99 @@
               style="width: {$rdBufTime.bufferPercentage}"
             />
             <div class="aplayer-played" style="width: {$rdTime.playPercentage}">
-              <div class="aplayer-thumb">
-                <span
-                  class="aplayer-loading-icon"
-                  style="display: none"
-                >
-                  {@html loadingIcon}
-                </span>
-              </div>
+                <div class="aplayer-thumb">
+                    <span
+                        class="aplayer-loading-icon"
+                        style="display: none"
+                    >
+                        {@html loadingIcon}
+                    </span>
+                </div>
             </div>
           </div>
         </div>
         <div class="aplayer-time">
-          <span class="aplayer-time-inner">
-            <span class="aplayer-ptime">{$rdTime.ptime}</span> /
-            <span class="aplayer-dtime">{$rdTime.duration}</span>
-          </span>
+            <span class="aplayer-time-inner">
+                <span class="aplayer-ptime">{$rdTime.ptime}</span> /
+                <span class="aplayer-dtime">{$rdTime.duration}</span>
+            </span>
 
-          <span hidden />
-          <div class="aplayer-volume-wrap">
-            <button
-              type="button"
-              class="aplayer-icon aplayer-icon-volume-down"
-              on:click|capture={() => {
-                player.muted = !player.muted;
-              }}
-            >
-              {#if $volumeState.muted || player?.muted}
-                {@html soundMuted}
-              {:else}
-                {@html soundUnmuted}
-              {/if}
-            </button>
-            <!-- svelte-ignore a11y-no-static-element-interactions -->
-            <div
-              class="aplayer-volume-bar-wrap"
-              on:mousedown={volumeDragStart}
-              on:mousemove={volumeDragMove}
-              on:mouseup={volumeDragEnd}
-              on:mouseleave={volumeDragEnd}
-              on:touchstart={volumeDragStart}
-              on:touchmove={volumeDragMove}
-              on:touchend={volumeDragEnd}
-            >
-              <div class="aplayer-volume-bar" bind:this={volumeBar}>
+            <div class="aplayer-volume-wrap">
+                <button
+                    type="button"
+                    class="aplayer-icon aplayer-icon-volume-down"
+                    on:click|capture={() => {
+                        player.muted = !player.muted;
+                    }}
+                >
+                    {#if $volumeState.muted || player?.muted}
+                        {@html soundMuted}
+                    {:else}
+                        {@html soundUnmuted}
+                    {/if}
+                </button>
+                <!-- svelte-ignore a11y-no-static-element-interactions -->
                 <div
-                  class="aplayer-volume"
-                  style="height: {player?.muted ? '0px' : $volumeState.volumePercentage}"
-                />
-              </div>
+                    class="aplayer-volume-bar-wrap"
+                    on:mousedown={volumeDragStart}
+                    on:mousemove={volumeDragMove}
+                    on:mouseup={volumeDragEnd}
+                    on:mouseleave={volumeDragEnd}
+                    on:touchstart={volumeDragStart}
+                    on:touchmove={volumeDragMove}
+                    on:touchend={volumeDragEnd}
+                >
+                    <div class="aplayer-volume-bar" bind:this={volumeBar}>
+                        <div
+                            class="aplayer-volume"
+                            style="height: {player?.muted ? '0px' : $volumeState.volumePercentage}"
+                        />
+                    </div>
+                </div>
             </div>
-          </div>
-          <button
-            type="button"
-            class="aplayer-icon aplayer-icon-order"
-            on:click={() => {
-              $controlState.order = $controlState.order === "list" ? "random" : "list";
-            }}
-          >
-            {#if $controlState.order === "random"}
-              {@html randomOrder}
-            {:else}
-              {@html listOrder}
-            {/if}
-          </button>
-          <button
-            type="button"
-            class="aplayer-icon aplayer-icon-loop"
-            on:click={() => {
-              if ($controlState.loop === "all") {
-                $controlState.loop = "one";
-              } else if ($controlState.loop === "one") {
-                $controlState.loop = "none";
-              } else if ($controlState.loop === "none") {
-                $controlState.loop = "all";
-              }
-            }}
-          >
-            {#if $controlState.loop === "none"}
-              {@html loopNone}
-            {:else if $controlState.loop === "one"}
-              {@html loopOne}
-            {:else if $controlState.loop === "all"}
-              {@html loopAll}
-            {/if}
-          </button>
-
-          {#if $audioList.length > 1}
             <button
-              type="button"
-              class="aplayer-icon aplayer-icon-menu"
-              on:click={() => {
-                $controlState.showList = !$controlState.showList;
-                $controlState.showList ? dispatch("listshow") : dispatch("listhide");
-              }}
+                type="button"
+                class="aplayer-icon aplayer-icon-order"
+                on:click={() => {
+                    $controlState.order = $controlState.order === "list" ? "random" : "list";
+                }}
+            >
+                {#if $controlState.order === "random"}
+                    {@html randomOrder}
+                {:else}
+                    {@html listOrder}
+                {/if}
+            </button>
+            <button
+                type="button"
+                class="aplayer-icon aplayer-icon-loop"
+                on:click={() => {
+                    if ($controlState.loop === "all") {
+                        $controlState.loop = "one";
+                    } else if ($controlState.loop === "one") {
+                        $controlState.loop = "none";
+                    } else if ($controlState.loop === "none") {
+                        $controlState.loop = "all";
+                    }
+                }}
+            >
+                {#if $controlState.loop === "none"}
+                    {@html loopNone}
+                {:else if $controlState.loop === "one"}
+                    {@html loopOne}
+                {:else if $controlState.loop === "all"}
+                    {@html loopAll}
+                {/if}
+            </button>
+
+            {#if $audioList.length > 1}
+            <button
+                type="button"
+                class="aplayer-icon aplayer-icon-menu"
+                on:click={() => {
+                    $controlState.showList = !$controlState.showList;
+                    $controlState.showList ? dispatch("listshow") : dispatch("listhide");
+                }}
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -398,22 +397,21 @@
                     />
                 </svg>
             </button>
-          {/if}
+            {/if}
         </div>
       </div>
     </div>
 
     <div
-      class="aplayer-list"
-      style="height: {$controlState.showList ? `${playerListHeight}px` : '0px'}"
-      bind:this={playListElement}
+        class="aplayer-list"
+        style="height: {$controlState.showList ? `${playerListHeight}px` : '0px'}"
+        bind:this={playListElement}
     >
       <ol>
         {#each $audioList as song, idx}
             <!-- svelte-ignore a11y-click-events-have-key-events -->
             <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
-            <li on:click={() => switchSong(idx) }
-            >
+            <li on:click={() => switchSong(idx) }>
             {#if idx === $playList.playingIndex}
                 <span class="aplayer-list-cur" />
             {/if}
@@ -429,23 +427,23 @@
 
 <style lang="scss">
     .aplayer {
-      --base-font-size: 12px;
-      --aplayer-height: calc(var(--base-font-size) * 5.5);
-      --theme-color: #fadfa3;
-      position: relative;
-      background: #fff;
-      box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.07), 0 1px 5px 0 rgba(0, 0, 0, 0.1);
-      font-family: Arial, Helvetica, sans-serif;
-      overflow: hidden;
-      border-radius: 2px;
-      user-select: none;
-      line-height: normal;
+        --base-font-size: 12px;
+        --aplayer-height: calc(var(--base-font-size) * 5.5);
+        --theme-color: #fadfa3;
+        position: relative;
+        background: #fff;
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.07), 0 1px 5px 0 rgba(0, 0, 0, 0.1);
+        font-family: Arial, Helvetica, sans-serif;
+        overflow: hidden;
+        border-radius: 2px;
+        user-select: none;
+        line-height: normal;
       svg {
         width: 100%;
         height: 100%;
-  
+
         path {
-          fill: #fff;
+            fill: #fff;
         }
       }
   
