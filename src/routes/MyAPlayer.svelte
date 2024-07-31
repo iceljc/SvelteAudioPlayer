@@ -108,7 +108,9 @@
         };
 
         player.addEventListener("progress", setBufTime);
-        player.addEventListener("canplay", setBufTime);
+        player.addEventListener("canplay", () => {
+            setBufTime();
+        });
         player.addEventListener("durationchange", () => {
             $duration = player.duration;
         });
@@ -158,9 +160,11 @@
         }
 
         if (player) {
-            player.play().catch((err) => {
-                console.error(err);
-            });
+            setTimeout(() => {
+                player.play().catch((err) => {
+                    console.error(err);
+                });
+            }, 500);
         }
     };
 
@@ -170,33 +174,54 @@
         if ($controlState.loop === "none") {
             if ($controlState.order === "list") {
                 if ($playList.playingIndex < audios.length - 1) {
-                    $playList.playingIndex = nextIdx;
-                    player.currentTime = 0;
+                    const promise = buildNextSongPromise(nextIdx);
+                    promise.then(() => play());
                 } else {
                     $playList.playingIndex = ($playList.playingIndex + 1) % audios.length;
+                    player.src = $currentSong.url;
                     player.pause();
                 }
             } else if ($controlState.order === "random") {
                 const randomIdx = Math.floor(audios.length * Math.random());
+                let targetIdx = 1;
                 if (randomIdx === $playList.playingIndex) {
-                    $playList.playingIndex = nextIdx;
+                    targetIdx = nextIdx;
+                    
                 } else {
-                    $playList.playingIndex = randomIdx;
+                    targetIdx = randomIdx;
                 }
-                player.currentTime = 0;
+                const promise = buildNextSongPromise(targetIdx);
+                promise.then(() => play());
             }
         } else if ($controlState.loop === "one") {
             player.currentTime = 0;
         } else if ($controlState.loop === "all") {
-            $playList.playingIndex = nextIdx;
-        }
-
-        if (player) {
-            player.addEventListener("ended", () => {
-                jumpNext();
-            });
+            const promise = buildNextSongPromise(nextIdx);
+            promise.then(() => play());
         }
     };
+
+    const buildNextSongPromise = (idx: number) => {
+        return new Promise((resolve: any) => {
+            $playList.playingIndex = idx;
+            player.currentTime = 0;
+            player.src = $currentSong.url;
+            player.pause();
+            player.load();
+            setTimeout(() => {
+                resolve();
+            }, 350);
+        });
+    }
+
+    const switchSong = (idx: number, isPlayNext: boolean = false) => {
+        const promise = buildNextSongPromise(idx);
+        if (isPlayNext) {
+            promise.then(() => {
+                play();
+            });
+        }
+    }
 </script>
 
 <div
@@ -387,11 +412,7 @@
         {#each $audioList as song, idx}
             <!-- svelte-ignore a11y-click-events-have-key-events -->
             <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
-            <li
-                on:click={() => {
-                    $playList.playingIndex = idx;
-                    player.currentTime = 0;
-                }}
+            <li on:click={() => switchSong(idx) }
             >
             {#if idx === $playList.playingIndex}
                 <span class="aplayer-list-cur" />

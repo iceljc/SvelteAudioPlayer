@@ -1,8 +1,5 @@
 <script lang="ts">
-    import AudioPlayer from "./AudioPlayer.svelte";
     import MyAPlayer from "./MyAPlayer.svelte";
-    import MyAudioPlayer from "./MyAudioPlayer.svelte";
-    import Test from "./Test.svelte";
 </script>
 
 <MyAPlayer mutex audio={
@@ -14,16 +11,22 @@
                 url: "https://blog-static.fengkx.top/svelte-aplayer/bakemonogatari-ed.mp3"
             },
             {
-                name:'test',
+                name:'Lepidoptera',
                 artist: 'supercell',
                 cover: 'https://blog-static.fengkx.top/svelte-aplayer/bakemonogatari-ed.jpg',
                 url: "https://commondatastorage.googleapis.com/codeskulptor-assets/Epoq-Lepidoptera.ogg"
+            },
+            {
+                name:'win',
+                artist: 'supercell',
+                cover: 'https://blog-static.fengkx.top/svelte-aplayer/bakemonogatari-ed.jpg',
+                url: "https://commondatastorage.googleapis.com/codeskulptor-demos/riceracer_assets/music/win.ogg"
             }
         ]
     }
 />
 
-<MyAPlayer mutex audio={
+<!-- <MyAPlayer mutex audio={
     [
         {
             name:'test',
@@ -39,6 +42,4 @@
         }
     ]
 }
-/>
-
-<!-- <Test /> -->
+/> -->
