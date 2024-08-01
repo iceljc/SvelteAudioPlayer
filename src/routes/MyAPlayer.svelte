@@ -516,9 +516,9 @@
             .aplayer-pause {
                 width: 16px;
                 height: 16px;
-                border: 2px solid #fff;
-                bottom: 4px;
-                right: 4px;
+                // border: 2px solid #fff;
+                // bottom: 4px;
+                // right: 4px;
                 svg {
                     position: absolute;
                     top: 2px;
