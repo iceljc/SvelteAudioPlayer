@@ -50,6 +50,7 @@
     export let list_max_height: number = Infinity;
     export let playDelay = 300;
     export let autoPlayNextOnClick: boolean = true;
+    export let base_font_size = "12";
 
     let volumeBar: HTMLElement;
     let playedBar: HTMLElement;
@@ -159,7 +160,6 @@
         }
     }
 
-    export let base_font_size = "12";
     // @ts-ignore
     $: baseFontSize = String(base_font_size).match(/^\d+/)[0] + "px";
     $: {
