@@ -65,10 +65,7 @@
     let volumePercentage: string;
 
     onMount(() => {
-        player = document.createElement("audio");
-        initPlayer(player, dispatch);
-        isShowList = !propsBool($$props, "list_folded") && $audioList.length > 1;
-
+        player = init();
         const volumeHandlers = volumeEventHandlers(player, volumeBar);
         volumeDragStart = volumeHandlers.volumeDragStart;
         volumeDragMove = volumeHandlers.volumeDragMove;
@@ -130,6 +127,16 @@
     onDestroy(() => {
         dispatch("destroy");
     });
+
+    const init = () => {
+        const audio = document.createElement("audio");
+        initPlayer(audio, dispatch);
+        isShowList = !propsBool($$props, "list_folded") && $audioList.length > 1;
+        volume = Math.max(volume, 0);
+        volume = Math.min(volume, 1);
+        audio.volume = volume;
+        return audio;
+    }
 
     $: parsedAudio = typeof audio === "string" ? JSON.parse(audio) : audio;
     $: $playList.audio = Array.isArray(parsedAudio) ? parsedAudio : [parsedAudio];
