@@ -60,7 +60,6 @@
     let playListElement: HTMLElement;
     let rootEl: HTMLElement;
     let player: HTMLAudioElement;
-    let skipTime;
     let isShowList: boolean = false;
     let muted: boolean = false;
     let volumePercentage: string;
@@ -95,7 +94,7 @@
         player.addEventListener("error", () => {
             console.warn("An audio error has occurred, player will skip forward in 2 seconds.");
             if ($audioList.length > 1) {
-                skipTime = setTimeout(() => {
+                setTimeout(() => {
                     $playList.playingIndex = ($playList.playingIndex + 1) % $audioList.length;
                         if (player.paused) {
                             play();
