@@ -1,6 +1,5 @@
 import { derived, writable } from "svelte/store";
 import { parseLrc, secondToTime } from "./utils";
-import { onMount } from "svelte";
 
 export const instances: HTMLAudioElement[] = [];
 export type Audio = {

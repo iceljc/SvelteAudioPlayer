@@ -47,10 +47,10 @@
     export let mini = false;
     export let mutex = true;
     export let theme: string = "#fadfa3";
-    export let list_max_height: number = Infinity;
+    export let listMaxHeight: number = Infinity;
     export let playDelay = 300;
     export let autoPlayNextOnClick: boolean = true;
-    export let base_font_size = "12";
+    export let baseFontSize = "12px";
 
     let volumeBar: HTMLElement;
     let playedBar: HTMLElement;
@@ -78,10 +78,7 @@
         progressDragEnd = progressHandlers.progressDragEnd;
 
         playListElement?.addEventListener("transitionend", () => {
-            playerListHeight = Math.min(
-                playListElement?.scrollHeight ?? 0,
-                list_max_height
-            );
+            playerListHeight = Math.min(playListElement?.scrollHeight ?? 0, listMaxHeight);
         });
 
         player.addEventListener("timeupdate", () => {
@@ -130,13 +127,13 @@
     });
 
     const init = () => {
-        const audio = document.createElement("audio");
-        initPlayer(audio, dispatch);
+        const audioPlayer = document.createElement("audio");
+        initPlayer(audioPlayer, dispatch);
         isShowList = !propsBool($$props, "list_folded") && $audioList.length > 1;
         volume = Math.max(volume, 0);
         volume = Math.min(volume, 1);
-        audio.volume = volume;
-        return audio;
+        audioPlayer.volume = volume;
+        return audioPlayer;
     }
 
     $: parsedAudio = typeof audio === "string" ? JSON.parse(audio) : audio;
@@ -148,20 +145,13 @@
             volumePercentage = `${volume * 100}%`;
         }
     }
-    $: playerListHeight = Math.min(
-        playListElement?.scrollHeight ?? 0,
-        list_max_height
-    );
+    $: playerListHeight = Math.min(playListElement?.scrollHeight ?? 0, listMaxHeight);
     $: themeColor = $currentSong.theme ?? theme;
-
     $: {
         if (player) {
             player.src = $currentSong.url;
         }
     }
-
-    // @ts-ignore
-    $: baseFontSize = String(base_font_size).match(/^\d+/)[0] + "px";
     $: {
         if (rootEl) {
             rootEl.style.setProperty("--theme-color", themeColor);
@@ -198,10 +188,9 @@
                 }
             } else if (order === "random") {
                 const randomIdx = Math.floor(audios.length * Math.random());
-                let targetIdx = 1;
+                let targetIdx = 0;
                 if (randomIdx === $playList.playingIndex) {
                     targetIdx = nextIdx;
-                    
                 } else {
                     targetIdx = randomIdx;
                 }
