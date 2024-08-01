@@ -41,8 +41,8 @@
     } = createMyStore(dispatch);
 
     export let audio: Audio[] | string;
-    export let order = 'list';
-    export let loop = 'all';
+    export let order: "list" | "random" = 'list';
+    export let loop: "none" | "all" | "one" = 'all';
     export let volume = 0.7;
     export let mini = false;
     export let mutex = true;
