@@ -244,6 +244,16 @@
         isShowList = !isShowList;
         isShowList ? dispatch("listshow") : dispatch("listhide");
     }
+
+    const togglePlay = () => {
+        if (player?.paused) {
+            play();
+        } else {
+            setTimeout(() => {
+                player.pause();
+            }, playDelay);
+        }
+    }
 </script>
 
 <div
@@ -259,9 +269,7 @@
     <div
       class="aplayer-pic"
       style="background-image: url( {$currentSong.cover} )"
-      on:click={() => {
-        player?.paused ? play() : player.pause();
-      }}
+      on:click={() => togglePlay()}
     >
         {#if !player?.paused}
         <div class="aplayer-button aplayer-pause">
