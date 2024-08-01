@@ -24,5 +24,9 @@ export function volumeEventHandlers(player: HTMLAudioElement, volumeBar: HTMLEle
       }
     };
 
-    return { volumeDragStart, volumeDragMove, volumeDragEnd };
+    const toggleVolumeMute = () => {
+      player.muted = !player.muted;
+    };
+
+    return { volumeDragStart, volumeDragMove, volumeDragEnd, toggleVolumeMute };
 }

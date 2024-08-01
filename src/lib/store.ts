@@ -24,6 +24,11 @@ export type ControlState = {
   showList: boolean;
 };
 
+export type VolumnState = {
+  volumePercentage: string;
+  muted: boolean;
+};
+
 export type DispatchFunc = (name: string, detail?: any) => void;
 
 export function createStore(dispatch: DispatchFunc) {
@@ -199,21 +204,8 @@ export function createMyStore(dispatch: DispatchFunc) {
     playingIndex: 0,
     audio: [],
   });
+
   const audioList = derived(playList, ($pl) => $pl.audio);
-  const controlState = writable<ControlState>({
-    volume: 0.7,
-    loop: "all",
-    order: "list",
-    showList: true,
-  });
-
-  const volumeState = derived(controlState, ($wt) => {
-    return {
-      volumePercentage: `${$wt.volume * 100}%`,
-      muted: $wt.volume === 0,
-    };
-  });
-
   const currentSong = derived(playList, ($wt) => $wt.audio[$wt.playingIndex]);
 
   let initSong = false;
@@ -223,6 +215,7 @@ export function createMyStore(dispatch: DispatchFunc) {
     }
     initSong = true;
   });
+
   let initAudioList = false;
   audioList.subscribe((list) => {
     if (initAudioList) {
@@ -235,13 +228,11 @@ export function createMyStore(dispatch: DispatchFunc) {
     playList,
     audioList,
     currentSong,
-    rdTime,
     currentTime,
     duration,
+    rdTime,
     rdBufTime,
     wtBufTime,
-    controlState,
-    volumeState,
   };
 }
 
