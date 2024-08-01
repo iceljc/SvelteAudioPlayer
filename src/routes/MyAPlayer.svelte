@@ -514,17 +514,17 @@
                 }
             }
             .aplayer-pause {
-                width: 16px;
-                height: 16px;
+                width: 26px;
+                height: 26px;
                 // border: 2px solid #fff;
                 // bottom: 4px;
                 // right: 4px;
                 svg {
                     position: absolute;
-                    top: 2px;
-                    left: 2px;
-                    height: 12px;
-                    width: 12px;
+                    top: 3px;
+                    left: 4px;
+                    height: 20px;
+                    width: 20px;
                 }
             }
         }
