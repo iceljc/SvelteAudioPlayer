@@ -25,6 +25,7 @@
             url: "https://commondatastorage.googleapis.com/codeskulptor-demos/riceracer_assets/music/win.ogg"
         }
     ]}
+    on:seeked={() => console.log('seeked')}
 />
 
 <!-- <AudioPlayer mutex audio={
