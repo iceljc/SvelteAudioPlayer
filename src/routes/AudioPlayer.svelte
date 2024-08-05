@@ -3,9 +3,7 @@
         initAudio,
         createMyStore,
         stopAll,
-
         clearInstance
-
     } from "../lib/store";
     import { volumeEventHandlers } from "../lib/volume-handler";
     import { progressEventHandlers } from "../lib/progress-handler";
