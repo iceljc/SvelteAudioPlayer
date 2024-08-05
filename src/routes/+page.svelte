@@ -1,6 +1,12 @@
 <script lang="ts">
     import AudioPlayer from "./AudioPlayer.svelte";
+    import Speaker from "./Speaker.svelte";
+    import Stretch from "./Stretch.svelte";
 </script>
+
+<!-- <Speaker /> -->
+
+<Stretch unit='px' size='5' gap='5' />
 
 <AudioPlayer
     mutex
