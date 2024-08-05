@@ -1,8 +1,10 @@
 <script lang="ts">
-    import MyAPlayer from "./MyAPlayer.svelte";
+    import AudioPlayer from "./AudioPlayer.svelte";
 </script>
 
-<MyAPlayer mutex audio={
+<AudioPlayer
+    mutex
+    audio={
     [
         {
             name:'君の知らない物語',
@@ -25,7 +27,7 @@
     ]}
 />
 
-<!-- <MyAPlayer mutex audio={
+<!-- <AudioPlayer mutex audio={
     [
         {
             name:'test',
